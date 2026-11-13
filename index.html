@@ -1,0 +1,687 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CNC Tech Hub | IISER Bhopal</title>
+
+<style>
+/* 
+ * ----------------------------------------
+ * THEME VARIABLES (Light & Dark)
+ * ----------------------------------------
+ */
+:root {
+    /* LIGHT THEME (Default) */
+    --bg: #f8fafc;
+    --surface: #ffffff;
+    --text: #0f172a;
+    --muted: #475569;
+    --accent: #2563eb;
+    --border: #e2e8f0;
+    
+    /* Specific Element Colors - Light */
+    --nav-bg: rgba(248, 250, 252, 0.95);
+    --hero-grad: rgba(37, 99, 235, 0.08);
+    --tag-bg: #eff6ff;
+    --tag-border: #bfdbfe;
+    --btn-text: #ffffff;
+    --btn-hover: #1d4ed8;
+    --events-bg: #f1f5f9;
+}
+
+html.dark {
+    /* DARK THEME (Original CNC Colors) */
+    --bg: #0b1120;
+    --surface: #131d30;
+    --text: #edf3ff;
+    --muted: #9baac0;
+    --accent: #61a5fa;
+    --border: #28364d;
+    
+    /* Specific Element Colors - Dark */
+    --nav-bg: rgba(11, 17, 32, 0.95);
+    --hero-grad: rgba(59, 130, 246, 0.17);
+    --tag-bg: #142642;
+    --tag-border: #31527e;
+    --btn-text: #08111e;
+    --btn-hover: #8bbcff;
+    --events-bg: #0e1728;
+}
+
+/* 
+ * ----------------------------------------
+ * BASE STYLES
+ * ----------------------------------------
+ */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+    /* Hardcoded background required for View Transitions to avoid flashing */
+    background-color: var(--bg); 
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    overflow-x: hidden;
+    transition: background-color 0.3s ease, color 0.3s ease;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+/* 
+ * ----------------------------------------
+ * LAYOUT & COMPONENTS
+ * ----------------------------------------
+ */
+nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 8%;
+    border-bottom: 1px solid var(--border);
+    position: sticky;
+    top: 0;
+    background: var(--nav-bg);
+    backdrop-filter: blur(10px);
+    z-index: 10;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.logo {
+    font-size: 21px;
+    font-weight: bold;
+    letter-spacing: 1px;
+}
+
+.logo span {
+    color: var(--accent);
+}
+
+.nav-links {
+    display: flex;
+    gap: 25px;
+    list-style: none;
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.nav-links a:hover {
+    color: var(--accent);
+}
+
+.hero {
+    padding: 100px 8% 90px;
+    background: radial-gradient(circle at 80% 30%, var(--hero-grad), transparent 35%);
+}
+
+.tag {
+    display: inline-block;
+    color: var(--accent);
+    border: 1px solid var(--tag-border);
+    background: var(--tag-bg);
+    padding: 6px 13px;
+    border-radius: 30px;
+    font-size: 12px;
+    margin-bottom: 22px;
+    transition: background-color 0.3s ease, border-color 0.3s ease;
+}
+
+.hero h1 {
+    font-size: clamp(38px, 6vw, 65px);
+    line-height: 1.12;
+    max-width: 750px;
+    margin-bottom: 20px;
+}
+
+.hero h1 span {
+    color: var(--accent);
+}
+
+.hero p {
+    color: var(--muted);
+    max-width: 580px;
+    font-size: 16px;
+    margin-bottom: 30px;
+}
+
+.btn {
+    display: inline-block;
+    padding: 12px 22px;
+    border-radius: 7px;
+    background: var(--accent);
+    color: var(--btn-text);
+    font-weight: bold;
+    font-size: 14px;
+    transition: 0.2s;
+}
+
+.btn:hover {
+    background: var(--btn-hover);
+    transform: translateY(-2px);
+}
+
+.btn-outline {
+    background: transparent;
+    border: 1px solid var(--border);
+    color: var(--text);
+    margin-left: 10px;
+}
+
+.btn-outline:hover {
+    background: transparent;
+    border-color: var(--accent);
+    color: var(--accent);
+}
+
+section {
+    padding: 65px 8%;
+}
+
+.section-heading {
+    margin-bottom: 30px;
+}
+
+.section-heading h2 {
+    font-size: 29px;
+    margin-bottom: 7px;
+}
+
+.section-heading p {
+    color: var(--muted);
+    font-size: 14px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+}
+
+.card {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 25px;
+    transition: 0.2s;
+}
+
+.card:hover {
+    transform: translateY(-4px);
+    border-color: var(--accent);
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+}
+
+.card-icon {
+    font-size: 26px;
+    margin-bottom: 15px;
+}
+
+.card h3 {
+    font-size: 18px;
+    margin-bottom: 9px;
+}
+
+.card p {
+    color: var(--muted);
+    font-size: 14px;
+    margin-bottom: 17px;
+}
+
+.card a {
+    color: var(--accent);
+    font-size: 13px;
+    font-weight: bold;
+}
+
+.events {
+    background: var(--events-bg);
+    transition: background-color 0.3s ease;
+}
+
+.event-card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.event-label {
+    color: var(--accent);
+    font-size: 12px;
+    font-weight: bold;
+    text-transform: uppercase;
+}
+
+.event-card h3 {
+    margin: 7px 0;
+}
+
+.event-card p {
+    margin: 0;
+}
+
+.event-status {
+    color: var(--muted);
+    font-size: 12px;
+    white-space: nowrap;
+}
+
+.cta {
+    text-align: center;
+    padding: 75px 8%;
+}
+
+.cta h2 {
+    font-size: 30px;
+    margin-bottom: 12px;
+}
+
+.cta p {
+    color: var(--muted);
+    margin-bottom: 25px;
+}
+
+footer {
+    padding: 25px 8%;
+    border-top: 1px solid var(--border);
+    color: var(--muted);
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+/* 
+ * ----------------------------------------
+ * SCROLL ANIMATIONS 
+ * ----------------------------------------
+ */
+.animate-on-scroll {
+    opacity: 0;
+    transform: translateY(30px);
+    will-change: opacity, transform;
+    transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+}
+
+.animate-on-scroll.is-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* 
+ * ----------------------------------------
+ * THEME TOGGLE BUTTON & ICONS
+ * ----------------------------------------
+ */
+#theme-toggle {
+    position: fixed;
+    bottom: 24px;
+    right: 24px;
+    z-index: 100;
+    padding: 16px;
+    border-radius: 50%;
+    border: none;
+    background-color: var(--accent);
+    color: var(--surface);
+    cursor: pointer;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s, background-color 0.3s;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    view-transition-name: theme-toggle; /* Excludes button from view transition snapshot */
+}
+
+#theme-toggle:hover {
+    transform: scale(1.1);
+}
+
+#theme-icon {
+    width: 24px;
+    height: 24px;
+    transform: rotate(0deg);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html.dark #theme-icon {
+    transform: rotate(-20deg);
+}
+
+#moon-mask-circle {
+    transform: translate(24px, -24px);
+    transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html.dark #moon-mask-circle {
+    transform: translate(5px, -5px);
+}
+
+/* 
+ * ----------------------------------------
+ * VIEW TRANSITION API - RADIAL IN/OUT
+ * ----------------------------------------
+ */
+::view-transition-old(root),
+::view-transition-new(root) {
+    mix-blend-mode: normal;
+}
+
+/* Default state (Dark -> Light): Light mode expanding OUT */
+::view-transition-old(root) { 
+    z-index: 1; 
+    animation: none; 
+}
+::view-transition-new(root) { 
+    z-index: 2; 
+    animation: reveal-light 700ms ease-in-out both; 
+}
+
+/* Overridden state (Light -> Dark): Light mode collapsing IN */
+html.dark-transition::view-transition-old(root) { 
+    z-index: 2; 
+    animation: collapse-light 700ms ease-in-out both; 
+}
+html.dark-transition::view-transition-new(root) { 
+    z-index: 1; 
+    animation: none; 
+}
+
+::view-transition-old(theme-toggle) {
+    display: none;
+}
+::view-transition-new(theme-toggle),
+::view-transition-group(theme-toggle) {
+    animation: none;
+}
+
+@keyframes reveal-light {
+    from { clip-path: circle(0px at var(--vt-x) var(--vt-y)); }
+    to { clip-path: circle(var(--vt-radius) at var(--vt-x) var(--vt-y)); }
+}
+
+@keyframes collapse-light {
+    from { clip-path: circle(var(--vt-radius) at var(--vt-x) var(--vt-y)); }
+    to { clip-path: circle(0px at var(--vt-x) var(--vt-y)); }
+}
+
+/* 
+ * ----------------------------------------
+ * RESPONSIVE
+ * ----------------------------------------
+ */
+@media (max-width: 750px) {
+    nav { padding: 17px 5%; }
+    .nav-links { gap: 12px; font-size: 12px; }
+    .grid { grid-template-columns: 1fr; }
+    .hero { padding: 75px 6%; }
+    section { padding: 50px 6%; }
+    .event-card { align-items: flex-start; flex-direction: column; }
+    footer { flex-direction: column; }
+}
+
+@media (max-width: 420px) {
+    .nav-links { gap: 9px; font-size: 11px; }
+    .logo { font-size: 17px; }
+    .btn-outline { margin: 10px 0 0; }
+}
+</style>
+</head>
+
+<body> <!-- Starts Dark by Default -->
+
+<!-- THEME TOGGLE BUTTON -->
+<button id="theme-toggle" aria-label="Toggle Dark Mode">
+    <svg id="theme-icon" viewBox="0 0 24 24" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+        <mask id="moon-mask">
+            <rect x="0" y="0" width="24" height="24" fill="white" />
+            <circle id="moon-mask-circle" cx="12" cy="12" r="9" fill="black" />
+        </mask>
+        <circle cx="12" cy="12" r="9" mask="url(#moon-mask)" />
+    </svg>
+</button>
+
+<nav>
+    <div class="logo">Computing and Networking Council<span></span></div>
+
+    <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#resources">Resources</a></li>
+        <li><a href="#events">Events</a></li>
+        <li><a href="#about">About</a></li>
+    </ul>
+</nav>
+
+<header class="hero" id="home">
+    <div class="animate-on-scroll">
+        <div class="tag">IISER BHOPAL · STUDENT TECH COMMUNITY</div>
+
+        <h1>Explore. Learn.<br><span>Build Something.</span></h1>
+
+        <p>
+            Your space to explore technology, discover learning
+            resources, participate in workshops, and connect
+            with the tech community at IISER Bhopal.
+        </p>
+
+        <a href="#resources" class="btn">Explore Resources</a>
+        <a href="#events" class="btn btn-outline">Discover Events</a>
+    </div>
+</header>
+
+<section id="resources">
+    <div class="section-heading animate-on-scroll">
+        <h2>Explore & Learn</h2>
+        <p>Useful resources to help you get started with technology.</p>
+    </div>
+
+    <div class="grid">
+        <div class="card animate-on-scroll" style="transition-delay: 100ms;">
+            <div class="card-icon">⌨️</div>
+            <h3>Programming</h3>
+            <p>Explore programming fundamentals, algorithms, and problem-solving.</p>
+            <a href="https://www.freecodecamp.org/" target="_blank">Start learning →</a>
+        </div>
+
+        <div class="card animate-on-scroll" style="transition-delay: 200ms;">
+            <div class="card-icon">🌐</div>
+            <h3>Web Development</h3>
+            <p>Learn HTML, CSS and JavaScript and start building websites.</p>
+            <a href="https://developer.mozilla.org/" target="_blank">Explore tutorials →</a>
+        </div>
+
+        <div class="card animate-on-scroll" style="transition-delay: 300ms;">
+            <div class="card-icon">🐧</div>
+            <h3>Linux & Open Source</h3>
+            <p>Discover Linux, command-line tools, and open-source projects.</p>
+            <a href="https://linuxjourney.com/" target="_blank">Explore Linux →</a>
+        </div>
+    </div>
+</section>
+
+<section class="events" id="events">
+    <div class="section-heading animate-on-scroll">
+        <h2>Workshops & Events</h2>
+        <p>Stay connected with upcoming technical activities and team recruitments.</p>
+    </div>
+
+    <!-- Event 1: Trainee Team -->
+    <div class="card event-card animate-on-scroll">
+        <div>
+            <div class="event-label">Recruitment</div>
+            <h3>CNC Trainee Team Applications</h3>
+            <p style="margin-bottom: 12px;">
+                Join the force driving IISER Bhopal's tech, design, and innovation culture. Get hands-on experience collaborating with the Core Committee to turn ideas into reality.
+            </p>
+            <a href="https://forms.gle/k433x4RWPboeDQXPA" target="_blank">Apply here →</a>
+        </div>
+        <div class="event-status">Deadline: Nov 13, 2026</div>
+    </div>
+
+    <!-- Event 2: Developers' Team -->
+    <div class="card event-card animate-on-scroll" style="margin-top: 20px; transition-delay: 100ms;">
+        <div>
+            <div class="event-label">Recruitment</div>
+            <h3>Developers' Team (2026-27)</h3>
+            <p style="margin-bottom: 12px;">
+                Whether you love crafting sleek interfaces or solving tough backend challenges, join us to build impactful tech and digital solutions for the campus.
+            </p>
+            <a href="https://forms.gle/91P1iBN2jApgwc7n9" target="_blank">Apply here →</a>
+        </div>
+        <div class="event-status">Deadline: Nov 16, 2026</div>
+    </div>
+</section>
+
+
+<section id="about">
+    <div class="section-heading animate-on-scroll">
+        <h2>About CNC</h2>
+        <p>
+            The Computing & Networking Council is a student
+            community at IISER Bhopal that contributes to
+            the institute's technology, computing and
+            digital initiatives.
+        </p>
+    </div>
+</section>
+
+<div class="cta animate-on-scroll">
+    <h2>Have an idea?</h2>
+    <p>Got a suggestion for a workshop, resource or technical initiative?</p>
+    
+    <!-- Added a flex container to put buttons side-by-side -->
+    <div style="display: flex; justify-content: center; gap: 15px; flex-wrap: wrap; margin-top: 10px;">
+        <a href="mailto:cnc@iiserb.ac.in?subject=CNC%20Suggestion" class="btn">
+            Share Your Idea →
+        </a>
+        
+        <!-- Instagram Button -->
+        <a href="https://www.instagram.com/cnc_iiserb" target="_blank" class="btn btn-outline">
+            Follow on Instagram ↗
+        </a>
+    </div>
+</div>
+
+<footer class="animate-on-scroll">
+    <div> 2026 CNC Tech Hub · IISER Bhopal</div>
+    
+    <!-- Grouped the student text with a subtle footer link -->
+    <div style="display: flex; gap: 20px; align-items: center;">
+        <a href="https://www.instagram.com/cnc_iiserb" target="_blank" style="color: var(--accent);">Instagram</a>
+        <span>Built for the student community.</span>
+    </div>
+</footer>
+
+
+<!-- 
+ * ----------------------------------------
+ * JAVASCRIPT: THEME & SCROLL ANIMATIONS
+ * ----------------------------------------
+-->
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    
+    // --- 1. Theme Toggle & View Transitions ---
+    const themeBtn = document.getElementById('theme-toggle');
+    const root = document.documentElement;
+    let isTransitioning = false;
+    
+    // Check local storage for theme preference
+    if (localStorage.theme === 'light') {
+        root.classList.remove('dark');
+        document.body.classList.remove('dark');
+    }
+
+    themeBtn.addEventListener('click', async (e) => {
+        if (isTransitioning) return;
+        
+        const isDark = root.classList.contains('dark');
+        
+        // Fallback for older browsers
+        if (!document.startViewTransition) {
+            toggleThemeClass();
+            return;
+        }
+
+        isTransitioning = true;
+        
+        // Calculate radial transition coordinates from the click
+        const x = e.clientX;
+        const y = e.clientY;
+        const radius = Math.hypot(
+            Math.max(x, window.innerWidth - x),
+            Math.max(y, window.innerHeight - y)
+        );
+
+        // Set CSS variables for the animation
+        root.style.setProperty('--vt-x', `${x}px`);
+        root.style.setProperty('--vt-y', `${y}px`);
+        root.style.setProperty('--vt-radius', `${radius}px`);
+
+        // Apply temporary class for Light->Dark logic stacking
+        if (!isDark) {
+            root.classList.add('dark-transition');
+        }
+
+        try {
+            const transition = document.startViewTransition(() => {
+                toggleThemeClass();
+            });
+            await transition.finished;
+        } catch (error) {
+            console.error('Theme transition failed:', error);
+        } finally {
+            root.classList.remove('dark-transition');
+            root.style.removeProperty('--vt-x');
+            root.style.removeProperty('--vt-y');
+            root.style.removeProperty('--vt-radius');
+            isTransitioning = false;
+        }
+    });
+
+    function toggleThemeClass() {
+        root.classList.toggle('dark');
+        document.body.classList.toggle('dark');
+        localStorage.theme = root.classList.contains('dark') ? 'dark' : 'light';
+    }
+
+    // --- 2. Scroll Intersect Animations ---
+    const observerOptions = {
+        root: null,
+        rootMargin: '0px',
+        threshold: 0.15
+    };
+
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('is-visible');
+                // Optional: Stop observing once visible if you only want it to animate once
+                // observer.unobserve(entry.target); 
+            } else {
+                // Remove to allow re-animation when scrolling back up
+                entry.target.classList.remove('is-visible'); 
+            }
+        });
+    }, observerOptions);
+
+    document.querySelectorAll('.animate-on-scroll').forEach(el => {
+        observer.observe(el);
+    });
+
+});
+</script>
+
+</body>
+</html>
